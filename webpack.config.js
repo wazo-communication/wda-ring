@@ -1,15 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
-const webpack = require("webpack");
 const WebpackAutoInject = require('webpack-auto-inject-version-next');
 
 const isProduction = process.env.NODE_ENV == 'production';
-
-
-const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
-
 
 
 const config = {
@@ -94,20 +88,6 @@ const config = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/i,
-                include: [
-                    path.resolve(__dirname, 'assets')
-                ],
-                loader: 'babel-loader',
-            },
-            {
-                test: /\.css$/i,
-                include: [
-                    path.resolve(__dirname, 'assets')
-                ],
-                use: [stylesHandler, 'css-loader', 'style-loader'],
-            },
-            {
                 test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif|json)$/i,
                 include: [
                     path.resolve(__dirname, '.')
@@ -121,10 +101,6 @@ const config = {
 module.exports = () => {
     if (isProduction) {
         config.mode = 'production';
-        
-        config.plugins.push(new MiniCssExtractPlugin());
-        
-        
     } else {
         config.mode = 'development';
     }
