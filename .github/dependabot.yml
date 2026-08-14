@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Conventional Commits, as used everywhere else in this repository.
+    commit-message:
+      prefix: "fix"
+      prefix-development: "chore"
+    groups:
+      # `applies-to` defaults to version-updates, so security updates need
+      # their own group or they keep arriving as one pull request each.
+      npm-security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+      npm-version:
+        applies-to: version-updates
+        patterns:
+          - "*"
